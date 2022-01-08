@@ -7,6 +7,8 @@ class Processor {
 
   // TODO: Declare any necessary private members
  private:
+  long previdle, previowait;
+  long prevuser, prevnice, prevsystem, previrq, prevsoftirq, prevsteal;
 };
 
 #endif
