@@ -214,12 +214,12 @@ string LinuxParser::Ram(int pid) {
 string LinuxParser::Uid(int pid) {
   string line, key, value;
   
-  std::ifstream filestream(kProcDirectory + to_string(pid) + kStatFilename);
+  std::ifstream filestream(kProcDirectory + to_string(pid) + kStatusFilename);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {
       std::istringstream linestream(line);
       linestream >> key >> value;
-      if (key == "Uid") {
+      if (key == "Uid:") {
         return value;
       }
     }
@@ -280,7 +280,7 @@ float LinuxParser::CpuUtilization(int pid) {
   int counts = 14;
   int countcu = 15;
   int countcs = 16;
-  int countstart = 22;
+  int countstart = 21;
 
   std::ifstream filestream(kProcDirectory + to_string(pid) + kStatFilename);
   if (filestream.is_open()) {
@@ -292,6 +292,7 @@ float LinuxParser::CpuUtilization(int pid) {
       if (count == countcu) { cutime = stoi(value); }
       if (count == countcs) { cstime = stoi(value); }
       if (count == countstart) { starttime = stoi(value); }
+      count++;
     }
   }
 
