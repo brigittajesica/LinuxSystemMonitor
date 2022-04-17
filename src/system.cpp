@@ -23,7 +23,9 @@ vector<Process>& System::Processes() {
     vector<int> allpIDs = LinuxParser::Pids();
     for (int pID : allpIDs) {
         Process process(pID);
-        processes_.emplace_back(process);
+        if (process.Ram() != "0") {
+            processes_.emplace_back(process);
+        }
     }
 
     return processes_;

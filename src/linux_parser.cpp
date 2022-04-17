@@ -195,18 +195,18 @@ string LinuxParser::Command(int pid) {
 string LinuxParser::Ram(int pid) {
   string line, key, value;
   
-  std::ifstream filestream(kProcDirectory + to_string(pid) + kStatFilename);
+  std::ifstream filestream(kProcDirectory + to_string(pid) + kStatusFilename);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {
       std::istringstream linestream(line);
       linestream >> key >> value;
-      if (key == "VmData:") {
+      if (key == "VmSize:") {
         return to_string(stoi(value) / 1000);
       }
     }
   }
 
-  return " ";
+  return "0";
 }
 
 // TODO: Read and return the user ID associated with a process
